@@ -45,14 +45,18 @@ class Training:
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         raise NotImplementedError(
-            f'Определить функцию в дочернем классе: {type(self).__name__}')
+            f'Определить функцию в дочернем классе: {type(self).__name__}'
+        )
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
         return InfoMessage(
-            self.__class__.__name__, self.duration,
-            self.get_distance(), self.get_mean_speed(),
-            self.get_spent_calories())
+            self.__class__.__name__,
+            self.duration,
+            self.get_distance(),
+            self.get_mean_speed(),
+            self.get_spent_calories()
+        )
 
 
 @dataclass
@@ -63,9 +67,11 @@ class Running(Training):
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        return ((self.COEFF_RUN_1 * self.get_mean_speed() - self.COEFF_RUN_2)
-                * self.weight / self.M_IN_KM
-                * (self.duration * self.HOURS_IN_MIN))
+        return (
+            (self.COEFF_RUN_1 * self.get_mean_speed() - self.COEFF_RUN_2)
+            * self.weight / self.M_IN_KM
+            * (self.duration * self.HOURS_IN_MIN)
+        )
 
 
 @dataclass
@@ -74,20 +80,22 @@ class SportsWalking(Training):
     COEFF_WLK_1: ClassVar[float] = 0.035
     COEFF_WLK_2: ClassVar[float] = 0.029
 
-    height: float  # type: ignore
+    height: float
 
     def get_spent_calories(self) -> float:
-        return ((self.COEFF_WLK_1 * self.weight
-                + (self.get_mean_speed()**2 // self.height)
-                * self.COEFF_WLK_2 * self.weight) * self.duration
-                * self.HOURS_IN_MIN)
+        return (
+            (self.COEFF_WLK_1 * self.weight
+             + (self.get_mean_speed()**2 // self.height)
+             * self.COEFF_WLK_2 * self.weight) * self.duration
+            * self.HOURS_IN_MIN
+        )
 
 
 @dataclass
 class Swimming(Training):
     """Тренировка: плавание."""
-    length_pool: float  # type: ignore
-    count_pool: float  # type: ignore
+    length_pool: float
+    count_pool: float
 
     LEN_STEP: ClassVar[float] = 1.38
     COEFF_SWIM_1: ClassVar[float] = 1.1
@@ -95,13 +103,17 @@ class Swimming(Training):
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-        return (self.length_pool * self.count_pool
-                / self.M_IN_KM / self.duration)
+        return (
+            self.length_pool * self.count_pool
+            / self.M_IN_KM / self.duration
+        )
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        return ((self.get_mean_speed() + self.COEFF_SWIM_1)
-                * self.COEFF_SWIM_2 * self.weight)
+        return (
+            (self.get_mean_speed() + self.COEFF_SWIM_1)
+            * self.COEFF_SWIM_2 * self.weight
+        )
 
 
 def read_package(workout_type: str, data: list) -> Training:
