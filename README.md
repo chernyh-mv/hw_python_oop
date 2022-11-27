@@ -45,17 +45,17 @@ def main(training). Функция main() должна принимать на �
    
 - Установите и активируйте виртуальное окружение:
 
-  *для MacOS*
+  * *для MacOS*
   
-`python3 -m venv venv`
+    `python3 -m venv venv`
 
-`source venv/bin/activate`
+    `source venv/bin/activate`
 
-    *для Windows*
+  * *для Windows*
   
-`python -m venv venv`
+    `python -m venv venv`
 
-`source venv/Scripts/activate`
+    `source venv/Scripts/activate`
 
 - Установите зависимости из файла requirements.txt:
 
