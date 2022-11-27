@@ -51,7 +51,7 @@ def main(training). Функция main() должна принимать на �
 
 `source venv/bin/activate`
 
-  *для Windows*
+    *для Windows*
   
 `python -m venv venv`
 
